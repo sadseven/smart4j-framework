@@ -89,6 +89,11 @@ public class ClassHelper {
 		return classSet;
 	}
 	
+	
+	/**
+	 * 获取应用包名下所有bean类
+	 * @return
+	 */
 	public static Set<Class<?>> getBeanClassSet(){
 		HashSet<Class<?>> beanClassSet = new HashSet<Class<?>>();
 		beanClassSet.addAll(getServiceClassSet());
