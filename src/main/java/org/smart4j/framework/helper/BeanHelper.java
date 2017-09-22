@@ -31,6 +31,11 @@ public class BeanHelper {
 		return BEAN_MAP;
 	}
 	
+	/**
+	 * 获取实例
+	 * @param cls
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(Class<T> cls) {
 		if (!BEAN_MAP.containsKey(cls)) {
