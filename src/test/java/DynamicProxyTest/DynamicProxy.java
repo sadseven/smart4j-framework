@@ -2,6 +2,7 @@ package DynamicProxyTest;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 public class DynamicProxy implements InvocationHandler{
 	
@@ -20,6 +21,11 @@ public class DynamicProxy implements InvocationHandler{
 		after();
 		return result;
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> T getProxy() {
+		return  (T) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
 	}
 
 	private void after() {

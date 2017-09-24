@@ -9,8 +9,8 @@ public class DynamicProxyTest {
 		Hello hello = new HelloImpl();
 		DynamicProxy dynamicProxy = new DynamicProxy(hello);
 		
-		Hello helloProxy = (Hello) Proxy.newProxyInstance(hello.getClass().getClassLoader(), hello.getClass().getInterfaces(), dynamicProxy);
-		
+		Hello helloProxy = dynamicProxy.getProxy();
+				
 		helloProxy.say("Jack");
 		
 	}
