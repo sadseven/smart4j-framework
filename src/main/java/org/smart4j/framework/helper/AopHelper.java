@@ -1,6 +1,6 @@
 package org.smart4j.framework.helper;
 
-import java.lang.annotation.Annotation;
+import java.lang.annotation.Annotation;import java.security.Provider.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +14,7 @@ import org.smart4j.framework.annotation.Aspect;
 import org.smart4j.framework.proxy.AspectProxy;
 import org.smart4j.framework.proxy.Proxy;
 import org.smart4j.framework.proxy.ProxyManager;
+import org.smart4j.framework.proxy.TransactionProxy;
 
 /**
  * AOP助手类
@@ -65,14 +66,16 @@ public class AopHelper {
 	 */
 	private static Map<Class<?>, Set<Class<?>>> createProxyMap() throws Exception {
 		Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<Class<?>, Set<Class<?>>>();
-		Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
+		/*Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
 		for (Class<?> proxyClass : proxyClassSet) {
 			if (proxyClass.isAnnotationPresent(Aspect.class)) {
 				Aspect aspect = proxyClass.getAnnotation(Aspect.class);
 				Set<Class<?>> targetClassSet = createTargetClassSet(aspect);
 				proxyMap.put(proxyClass, targetClassSet);
 			}
-		}
+		}*/
+		addAspectProxy(proxyMap);
+		addTransactionProxy(proxyMap);
 		return proxyMap;
 	}
 	
@@ -101,6 +104,30 @@ public class AopHelper {
 		return targetMap;
 	}
 	
+	/**
+	 * 添加所有切面代理类
+	 * @param proxyMap
+	 * @throws Exception
+	 */
+	private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap) throws Exception {
+		Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
+		for (Class<?> proxyClass : proxyClassSet) {
+			if (proxyClass.isAnnotationPresent(Aspect.class)) {
+				Aspect aspect = proxyClass.getAnnotation(Aspect.class);
+				Set<Class<?>> targetClassSet = createTargetClassSet(aspect);
+				proxyMap.put(proxyClass, targetClassSet);
+			}
+		}
+	}
+
+	/**
+	 * 添加所有事务代理类
+	 * @param proxyMap
+	 */
+	private static void addTransactionProxy(Map<Class<?>, Set<Class<?>>> proxyMap) {
+		Set<Class<?>> serviceClassSet = ClassHelper.getClassSetByAnnotation(org.smart4j.framework.annotation.Service.class);
+		proxyMap.put(TransactionProxy.class, serviceClassSet);
+	}
 	
 	
 }

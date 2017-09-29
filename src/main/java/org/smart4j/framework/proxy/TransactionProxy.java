@@ -12,9 +12,9 @@ import org.smart4j.framework.helper.DatabaseHelper;
  * @author Administrator
  *
  */
-public class TranctionProxy implements Proxy{
+public class TransactionProxy implements Proxy{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TranctionProxy.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionProxy.class);
 	
 	private static final ThreadLocal<Boolean> FLAG_HOLDER = new ThreadLocal<Boolean>() {
 		@Override
