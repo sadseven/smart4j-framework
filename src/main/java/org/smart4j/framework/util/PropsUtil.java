@@ -71,4 +71,29 @@ public class PropsUtil {
 		return value;
 	}
 	
+	/**
+	 * 获取int属性,默认0
+	 * @param props
+	 * @param key
+	 * @return
+	 */
+	public static int getInt(Properties props, String key) {
+		return getInt(props, key, 0);
+	}
+	
+	/**
+	 * 获取int属性,指定key
+	 * @param props
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
+	public static int getInt(Properties props, String key, int defaultValue) {
+		int value = defaultValue;
+		if(props.containsKey(key)) {
+			value = CastUtil.castInt(props.getProperty(key));
+		}
+		return value;
+	}
+	
 }
