@@ -32,4 +32,12 @@ public class StringUtil {
 		return !isEmpty(string);
 	} 
 	
+	public static String[] splitString(String str, String regex) {
+		String[] strs = null;
+		if (isNotEmpty(str)) {
+			strs =  str.split(regex);
+		}
+		return strs;
+	}
+	
 }
