@@ -9,7 +9,7 @@ public class AppSecurity implements SmartSecurity{
 
 	@Override
 	public String getPassword(String username) {
-		String sql = "SELECT password FROM user WHERE username = ?";
+		String sql = "SELECT password FROM user WHERE username = ?"; 
 		return null;
 	}
 
